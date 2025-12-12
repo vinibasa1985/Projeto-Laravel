@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
+
 
 class UserController extends Controller
 {
@@ -31,9 +33,11 @@ class UserController extends Controller
 
         // dd($students);
         // dd($students[1]['name']);
+        // $users = DB::table('users')->get();
+        $users = User::get();
 
 
-        return view('users.allUsers', compact('cesaeInfo', 'students'));
+        return view('users.allUsers', compact('cesaeInfo', 'students', 'users'));
     }
 
     public function insertUserIntoDB(){
@@ -87,7 +91,7 @@ class UserController extends Controller
     public function selectUsersFromDB(){
 
         $users = DB::table('users')
-        ->whereNull('updated_at') //Mostra os users com
+        ->whereNull('updated_at') //Mostra os users sem updated_at
         ->get();
 
 
@@ -101,8 +105,5 @@ class UserController extends Controller
         // - Die: interrompe imediatamente a execução do código logo após mostrar os dados.
         dd($users);
     }
-
-
-
 
 }

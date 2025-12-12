@@ -9,6 +9,8 @@ use App\Http\Controllers\UtilController;
 // O sistema de rotas aqui ja esta pronto diferente do React
 use Illuminate\Support\Facades\Route; //Imports do Laravel (use substitui o import)
 
+use App\Http\Controllers\TaskController;
+
 // Route::get('/', function () {     //Rota original quando inicia o programa Laravel
 //     return view('welcome');       //welcome esta dentro de uma pasta
 // })->name('utils.welcome');
@@ -57,8 +59,14 @@ Route::get('/getusers', [UserController::class, 'selectUsersFromDB']);
 
 
 
+
+
 //Criar uma rota para mostrar todos os users
 Route::get('/allusers', [UserController::class, 'allUsers'])->name('users.all');
+
+//Criar uma rota para mostar todas as tasks
+Route::get('/alltasks', [TaskController::class, 'allTasks'])->name('tasks.all');;
+
 
 
 
