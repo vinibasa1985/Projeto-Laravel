@@ -17,6 +17,7 @@
       <th scope="col">Status</th>
       <th scope="col">Data de Conclusão</th>
       <th scope="col">User</th>
+
     </tr>
   </thead>
   <tbody>
@@ -28,6 +29,8 @@
       <td>{{$tasks->status}}</td>
       <td>{{$tasks->due_at}}</td>
       <td>{{$tasks->usname}}</td>
+      <td><a href="{{route('tasks.view', $tasks->id)}}" class="btn btn-info">Ver</a></td>
+      <td><a class="btn btn-danger" href="{{route('tasks.delete', $tasks->id)}}">Apagar</a></td>
     </tr>
     @endforeach
   </tbody>

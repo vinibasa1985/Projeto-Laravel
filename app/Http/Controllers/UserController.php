@@ -40,7 +40,8 @@ class UserController extends Controller
         return view('users.allUsers', compact('cesaeInfo', 'students', 'users'));
     }
 
-    public function insertUserIntoDB(){
+    public function insertUserIntoDB()
+    {
 
 
         //validar se dados estão em conformidade com a estrutura da base de dados
@@ -48,51 +49,55 @@ class UserController extends Controller
 
         //se passar em todas as validações, insere então na base de dados
         DB::table('users')
-        ->updateOrInsert(
-            [
-                'email' => 'Rafaela321@gmail.com',
-            ],
+            ->updateOrInsert(
+                [
+                    'email' => 'Rafaela321@gmail.com',
+                ],
 
-            [
-            'name'=>'Rafaela',
-            'password' =>'RAfaela1234',
-            'updated_at' =>now(),
-            'nif' => '2444444444'
-        ]);
+                [
+                    'name' => 'Rafaela',
+                    'password' => 'RAfaela1234',
+                    'updated_at' => now(),
+                    'nif' => '2444444444'
+                ]
+            );
         return response()->json('user inserido com sucesso');
     }
-    public function updateUserIntoDB(){
+    public function updateUserIntoDB()
+    {
 
 
         //validar se dados estão em conformidade com a estrutura da base de dados
 
         //se passar em todas as validações, insere então na base de dados
         DB::table('users')
-        ->where('id', 2)
-        ->update([
-            'name'=>'Rafaela Mudou de Nome porque não gostava do antigo',
-            'updated_at' => now(),
-        ]);
+            ->where('id', 2)
+            ->update([
+                'name' => 'Rafaela Mudou de Nome porque não gostava do antigo',
+                'updated_at' => now(),
+            ]);
 
         return response()->json('user atualizado com sucesso');
     }
 
-    public function deleteUserFromDB(){
+    public function deleteUserFromDB()
+    {
 
         //query para apagar
         DB::table('users')
-        ->where('id', 5)
-        ->delete();
+            ->where('id', 5)
+            ->delete();
 
         return response()->json('user apagado com sucesso');
     }
 
 
-    public function selectUsersFromDB(){
+    public function selectUsersFromDB()
+    {
 
         $users = DB::table('users')
-        ->whereNull('updated_at') //Mostra os users sem updated_at
-        ->get();
+            ->whereNull('updated_at') //Mostra os users sem updated_at
+            ->get();
 
 
 
@@ -105,5 +110,37 @@ class UserController extends Controller
         // - Die: interrompe imediatamente a execução do código logo após mostrar os dados.
         dd($users);
     }
+
+    //Função para carregar a ficha do user
+    public function viewUser($id)
+    {
+        //Query que vai buscar o user que estou a clicar
+        $user = DB::table('users')
+            ->where('id', $id)
+            ->first();
+
+
+        // $user = User::where('id', $id)
+        //     ->first();
+
+        return view('users.view_user', compact('user'));
+    }
+
+    public function deleteUser($id){
+
+        //Aqui podemos definir comportamentos para apagar tambem a chave estrangeira
+        Db::table('tasks')
+        ->where('user_id', $id)
+        ->delete();
+
+        Db::table('users')
+        ->where('id', $id)
+        ->delete();
+
+        return back();
+    }
+
+
+
 
 }

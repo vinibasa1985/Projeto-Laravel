@@ -1,8 +1,9 @@
-
+<!-- AQUI NOS REGISTRAMOS AS ROTAS -->
 
 <!-- Abaixo indica que neste ficheiro estamos usando php (teg abaixo) -->
 <?php
 
+use App\Http\Controllers\GiftController;
 use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\UtilController;
@@ -64,8 +65,31 @@ Route::get('/getusers', [UserController::class, 'selectUsersFromDB']);
 //Criar uma rota para mostrar todos os users
 Route::get('/allusers', [UserController::class, 'allUsers'])->name('users.all');
 
+//Criar rota que abre a view com toda a informação do user
+Route::get('/viewuser/{id}', [UserController::class, 'viewUser'])->name('users.view');
+
+//Criar rota que apaga toda a informação do user
+Route::get('/deleteuser/{id}', [UserController::class, 'deleteUser'])->name('users.delete');
+
 //Criar uma rota para mostar todas as tasks
-Route::get('/alltasks', [TaskController::class, 'allTasks'])->name('tasks.all');;
+Route::get('/alltasks', [TaskController::class, 'allTasks'])->name('tasks.all');
+
+//Criar rota que abre a view com toda a informação do user
+Route::get('/viewtasks/{id}', [TaskController::class, 'viewTasks'])->name('tasks.view');
+
+//Criar rota que apaga toda a informação do user
+Route::get('/deletetasks/{id}', [TaskController::class, 'deleteTasks'])->name('tasks.delete');
+
+
+//Criar uma rota para mostar todas as tasks
+Route::get('/allgifts', [GiftController::class, 'allGifts'])->name('gifts.all');
+
+//Criar rota que abre a view com toda a informação do user
+Route::get('/viewgifts/{id}', [GiftController::class, 'viewGifts'])->name('gifts.view');
+
+//Criar rota que apaga toda a informação do user
+Route::get('/deletegifts/{id}', [GiftController::class, 'deleteGifts'])->name('gifts.delete');
+
 
 
 

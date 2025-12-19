@@ -31,12 +31,14 @@
   </thead>
   <tbody>
     {{-- {{dd($users)}} --}}
-    @foreach ($users as $users)
+    @foreach ($users as $user)
     <tr>
-      <th scope="row">{{$users->id}}</th>
-      <td>{{$users->name}}</td>
-      <td>{{$users->email}}</td>
-      <td>{{$users->nif}}</td>
+      <th scope="row">{{$user->id}}</th>
+      <td>{{$user->name}}</td>
+      <td>{{$user->email}}</td>
+      <td>{{$user->nif}}</td>
+      <td><a href="{{route('users.view', $user->id)}}" class="btn btn-info">Ver</a></td>
+      <td><a class="btn btn-danger" href="{{route('users.delete', $user->id)}}">Apagar</a></td>
     </tr>
     @endforeach
   </tbody>
