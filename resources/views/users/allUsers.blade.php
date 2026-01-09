@@ -1,5 +1,10 @@
  @extends('layouts.main_layout')  {{--Ja temos o Bootstrap importado pelo main_layout--}}
 @section('content')
+
+@if (session('message'))
+<div class="alert alert-success">{{ session('message') }}</div>
+@endif
+
 {{-- O viwes mostra a parte visual no Browser --}}
 <h2>O email de contato do {{$cesaeInfo['name']}}, caso detecte erros é {{$cesaeInfo['email']}}, endereço {{$cesaeInfo['address']}}</h2>
 <h5>Aqui tem todos os utilizadores de forma estática (definido num array sem base de dados)</h5>
@@ -43,9 +48,12 @@
     @endforeach
   </tbody>
 </table>
-
+<br>
+<br>
 
 
 <a href="{{ route('utils.welcome') }}">Voltar para Home</a>
+<br>
+<br>
 
 @endsection

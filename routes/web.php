@@ -49,6 +49,10 @@ Route::get('/turma/{name}', function ($name) {
 Route::get('/adicionarusers', [UserController::class, 'addUser'])->name('users.add');
 
 
+//rota que pega nos dados do formulário e os envia para o servidor
+Route::post('/store-user', [UserController::class, 'storeUser'])->name('users.store');
+
+
 //função raw que insere um user na Base de dados (teste do dbquery builder sem frontend)
 Route::get('/insertintodb', [UserController::class, 'insertUserIntoDB']);
 
@@ -71,8 +75,16 @@ Route::get('/viewuser/{id}', [UserController::class, 'viewUser'])->name('users.v
 //Criar rota que apaga toda a informação do user
 Route::get('/deleteuser/{id}', [UserController::class, 'deleteUser'])->name('users.delete');
 
+//AdicionarVisualizar o formulário inserir tasks (users)
+Route::get('/tasks/add', [TaskController::class, 'addTask'])->name('tasks.add'); //addtasks é o nome dado para chamar a rota que vai chamar o controlador TaskController e a função addTasks
+//Pega nos dados do formulário e enviar dados para o servidor
+Route::post('/tasks/store', [TaskController::class, 'storeTask'])->name('tasks.store'); //storetask é o nome dado para chamar a rota que vai chamar o controlador TaskController e a função storeTask (método post porque está a enviar dados para o servidor)
+
+
 //Criar uma rota para mostar todas as tasks
 Route::get('/alltasks', [TaskController::class, 'allTasks'])->name('tasks.all');
+
+
 
 //Criar rota que abre a view com toda a informação do user
 Route::get('/viewtasks/{id}', [TaskController::class, 'viewTasks'])->name('tasks.view');
@@ -92,7 +104,7 @@ Route::get('/deletegifts/{id}', [GiftController::class, 'deleteGifts'])->name('g
 
 
 
-
+Route::put('/updateUser', [UserController::class, 'updateUser'])->name('users.update');
 
 // Route::get('/add-users', function () {
     // return view('users.add-users');

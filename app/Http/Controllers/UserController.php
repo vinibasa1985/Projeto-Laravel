@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+
+
+
 
 
 class UserController extends Controller
@@ -14,6 +18,30 @@ class UserController extends Controller
         $pageAdmin = 'Vinicius';
         return view('users.add_users', compact('pageAdmin'));
     }
+
+    //função que recebe os dados do formulário, valida e insere na base de dados
+    public function storeUser(Request $request){
+        // dd($request->all());
+        //dd('formulário submetido'); //Para testar
+
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8|string'
+
+        ]);
+
+        User::insert([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
+
+        return redirect()->route('users.all')->with('message', 'Contato adicionado com sucesso');
+    }
+
+
+
     public function allUsers()
     {
         $cesaeInfo =
@@ -40,11 +68,13 @@ class UserController extends Controller
         return view('users.allUsers', compact('cesaeInfo', 'students', 'users'));
     }
 
+
+
+
     public function insertUserIntoDB()
     {
 
-
-        //validar se dados estão em conformidade com a estrutura da base de dados
+         //validar se dados estão em conformidade com a estrutura da base de dados
 
 
         //se passar em todas as validações, insere então na base de dados
@@ -140,7 +170,22 @@ class UserController extends Controller
         return back();
     }
 
+    public function updateUser(Request $request){
+        //dd($request->all());
 
+         $request->validate([
+            'name' => 'required|string|max:50',
+        ]);
 
+        DB::table('users')
+        ->where('id', $request->id)
+        ->update([
+            'name' =>$request->name,
+            'address' =>$request->address,
+            'nif' =>$request->nif,
+        ]);
 
+        return redirect()->route('users.all')->with('message', 'User actualizado com sucesso');
+
+    }
 }

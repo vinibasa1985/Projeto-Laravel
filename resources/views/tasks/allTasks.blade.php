@@ -8,6 +8,10 @@
     <h1>Lista de Tarefas</h1>
     <p>Aqui vão aparecer as tarefas vinda da base de dados</p>
 
+    <a href="{{ route('tasks.add') }}" class="btn btn-primary">
+    Adicionar Tarefa
+</a>
+
 <table class="table">
   <thead>
 
